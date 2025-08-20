@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhruv Kabra - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-dark: #1a1a2e; /* Deep Navy/Charcoal */
+            --accent-blue: #0f4c75;
+            --text-light: #e0e0e0; /* Off-white */
+            --glow-blue: #6fe7e6; /* Cyan-ish glow */
+            --secondary-accent: #2c73d2; /* Brighter blue */
+            --border-color: rgba(111, 231, 230, 0.3);
+            --card-background: rgba(45, 61, 89, 0.4); /* Slightly transparent */
+            --transition-fast: 0.2s ease-in-out;
+            --transition-medium: 0.3s ease-in-out;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color var(--transition-medium);
+        }
+
+        /* --- Global Styles & Effects --- */
+        ::selection {
+            background-color: var(--glow-blue);
+            color: var(--background-dark);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--glow-blue);
+            text-shadow: 0 0 8px rgba(111, 231, 230, 0.6);
+            margin-bottom: 0.5em;
+            letter-spacing: 0.05em;
+        }
+
+        a {
+            color: var(--glow-blue);
+            text-decoration: none;
+            transition: color var(--transition-fast), text-shadow var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--secondary-accent);
+            text-shadow: 0 0 10px var(--secondary-accent);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .background-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background-image: radial-gradient(circle, var(--accent-blue) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.05;
+            animation: pulse 5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            to {
+                opacity: 0.1;
+                background-size: 22px 22px;
+            }
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--background-dark) 0%, var(--accent-blue) 100%);
+            position: relative;
+            animation: hero-fade-in 1.5s ease-out forwards;
+        }
+
+        @keyframes hero-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            animation: glow-pulse 2s infinite alternate;
+        }
+
+        @keyframes glow-pulse {
+            to {
+                text-shadow: 0 0 15px rgba(111, 231, 230, 0.8);
+            }
+        }
+
+        #hero p {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2em;
+            color: var(--text-light);
+            opacity: 0.8;
+            margin-top: 5px;
+            animation: slide-up 1s ease-out 0.5s forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        @keyframes slide-up {
+            to {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
+        }
+
+        #hero hr {
+            border-color: var(--border-color);
+            width: 50%;
+            margin: 20px auto;
+            opacity: 0;
+            animation: fade-in 1s ease-out 1s forwards;
+        }
+
+        @keyframes fade-in {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* --- About Me Section --- */
+        #about p {
+            font-size: 1.1em;
+            margin-bottom: 1em;
+        }
+
+        #about strong {
+            color: var(--glow-blue);
+        }
+
+        /* --- Experience & Education Sections --- */
+        .experience-item, .edu-item {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 3px solid var(--secondary-accent);
+            position: relative;
+        }
+
+        .experience-item::before, .edu-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary-accent);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .experience-item h3, .edu-item h3 {
+            margin-bottom: 5px;
+        }
+
+        .experience-item p, .edu-item p {
+            margin: 0;
+            color: var(--text-light);
+            opacity: 0.9;
+        }
+
+        .experience-item ul {
+            padding-left: 20px;
+        }
+
+        /* --- Skills Section --- */
+        .skill-category h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        #skills .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            justify-items: center;
+            padding: 20px 0;
+        }
+
+        #skills .skill-item {
+            background-color: var(--card-background);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            border: 1px solid rgba(111, 231, 230, 0.1);
+        }
+
+        #skills .skill-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 20px rgba(111, 231, 230, 0.6);
+            border-color: var(--glow-blue);
+        }
+
+        #skills .skill-item img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 5px rgba(111, 231, 230, 0.5));
+            transition: filter var(--transition-fast);
+        }
+
+        #skills .skill-item:hover img {
+            filter: drop-shadow(0 0 8px var(--glow-blue));
+        }
+
+        #skills .skill-item span {
+            display: block;
+            font-size: 0.9em;
+            color: var(--text-light);
+        }
+
+        /* --- Projects Section --- */
+        #projects .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        #projects .project-card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #projects .project-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 0 25px var(--glow-blue);
+        }
+
+        #projects .project-card h3 {
+            color: var(--glow-blue);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        #projects .project-card p {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        #projects .project-card .tech-list {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85em;
+            color: var(--text-light);
+            opacity: 0.7;
+            margin-bottom: 15px;
+        }
+
+        #projects .project-card .project-links {
+            margin-top: auto; /* Pushes links to the bottom */
+            display: flex;
+            gap: 15px;
+        }
+
+        #projects .project-card .project-links a {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: var(--secondary-accent);
+            border-radius: 5px;
+            color: white;
+            font-size: 0.9em;
+            transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        #projects .project-card .project-links a:hover {
+            background-color: var(--glow-blue);
+            transform: translateY(-2px);
+            color: var(--background-dark);
+            text-shadow: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- Connect Section --- */
+        #connect {
+            text-align: center;
+        }
+
+        #connect .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        #connect .social-link {
+            font-size: 2.5em;
+            color: var(--glow-blue);
+            transition: transform var(--transition-fast), color var(--transition-fast), text-shadow var(--transition-fast);
+        }
+
+        #connect .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: var(--secondary-accent);
+            text-shadow: 0 0 15px var(--secondary-accent);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: rgba(224, 224, 224, 0.7);
+            transition: color var(--transition-fast);
+        }
+
+        footer:hover {
+            color: var(--text-light);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2.5em;
+            }
+
+            #hero p {
+                font-size: 1em;
+            }
+
+            .section {
+                padding: 40px 0;
+            }
+
+            #skills .skill-grid,
+            #projects .project-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+
+            #projects .project-card {
+                padding: 20px;
+            }
+
+            #connect .social-links {
+                gap: 20px;
+            }
+
+            #connect .social-link {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #skills .skill-grid {
+                grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            }
+            #projects .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="background-effect"></div>
+
+    <header id="hero" class="section">
+        <div class="container">
+            <h1>Dhruv Kabra</h1>
+            <p>Versatile Software Engineer & UX-Driven Developer</p>
+            <hr>
+            <p>A third-year Computer Science student at VIT Vellore with a passion for building robust and user-centric software. I am a versatile and self-driven developer who combines an eye for intuitive design with a strong foundation in <b>full-stack, mobile, and cloud engineering</b> to create high-quality applications.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about" class="section">
+            <h2>About Me</h2>
+            <p>I am a highly motivated and <b>self-driven software development enthusiast</b> with a knack for turning complex problems into elegant solutions. My experience spans the entire development lifecycle, from crafting beautiful user interfaces to engineering efficient back-end systems. I thrive on bridging the gap between design and functionality, ensuring that every solution is not only technically sound but also provides a seamless and enjoyable user experience. I am committed to tackling complex challenges and driving innovation in a collaborative, fast-paced environment.</p>
+        </section>
+
+        <section id="skills" class="section">
+            <h2>Skills</h2>
+            <div class="skill-category">
+                <h3>Front-End, Mobile & UX</h3>
+                <div class="skill-grid">
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=react" alt="React"><span>React</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=reactnative" alt="React Native"><span>React Native</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=flutter" alt="Flutter"><span>Flutter</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=html" alt="HTML5"><span>HTML5</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=css" alt="CSS3"><span>CSS3</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=js" alt="JavaScript"><span>JavaScript</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=ts" alt="TypeScript"><span>TypeScript</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=figma" alt="Figma"><span>Figma</span></div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Back-End & Cloud</h3>
+                <div class="skill-grid">
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=nodejs" alt="Node.js"><span>Node.js</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=postgresql" alt="PostgreSQL"><span>PostgreSQL</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=mongodb" alt="MongoDB"><span>MongoDB</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=aws" alt="AWS"><span>AWS</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=ibmcloud" alt="IBM Cloud"><span>IBM Cloud</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=docker" alt="Docker"><span>Docker</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=kubernetes" alt="Kubernetes"><span>Kubernetes</span></div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Languages & Concepts</h3>
+                <div class="skill-grid">
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=java" alt="Java"><span>Java</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=python" alt="Python"><span>Python</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=go" alt="Go"><span>Go</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=cpp" alt="C++"><span>C++</span></div>
+                    <div class="skill-item"><img src="https://img.shields.io/badge/RESTful%20APIs-blue?style=for-the-badge" alt="RESTful APIs"><span>REST APIs</span></div>
+                    <div class="skill-item"><img src="https://img.shields.io/badge/DSA-purple?style=for-the-badge" alt="Data Structures & Algorithms"><span>DSA</span></div>
+                    <div class="skill-item"><img src="https://skillicons.dev/icons?i=git" alt="Git"><span>Git</span></div>
+                    <div class="skill-item"><img src="https://img.shields.io/badge/System%20Design-yellow?style=for-the-badge" alt="System Design"><span>System Design</span></div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="projects" class="section">
+            <h2>Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Human Resource Web App</h3>
+                    <p><strong>Role/Contribution:</strong> Backend Developer & UX Engineer. Designed and implemented a real-time collaborative HR Management application that allows a HR manager to manage and interact with employees simultaneously.</p>
+                    <p class="tech-list"><strong>Technologies:</strong> CSS3, MongoDB, Figma, HTML5, JavaScript</p>
+                    <p><strong>Key Achievements:</strong> Engineered a low-latency, real-time communication system using <b>WebSockets</b> to deliver live HR data updates, such as employee status changes and new notifications. Developed a robust backend API to manage user authentication, HR records, and secure communication channels, ensuring seamless collaboration and data integrity. Deployed the application on a cloud platform, handling user authentication and real-time data synchronization for up to <b>100+ simultaneous HR administrators and employees</b>.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/MrBoredHuman/HR-Web-App" target="_blank"><i class="fab fa-github"></i> GitHub Repo</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>Hotel Sentiment Analyzer</h3>
+                    <p><strong>Role/Contribution:</strong> Sole developer. Engineered a machine learning system to perform sentiment analysis on hotel reviews. The system analyzes large volumes of text data from sources like TripAdvisor and Booking.com to automatically categorize guest opinions and identify key topics and sentiments.</p>
+                    <p class="tech-list"><strong>Technologies:</strong> Python (Scrapy, Pandas, NumPy), Flask, MongoDB, AWS EC2</p>
+                    <p><strong>Key Achievements:</strong> Developed a <b>scalable NLP pipeline</b> using Python and Scikit-learn to ingest and analyze customer reviews from various hotel booking platforms. The system automatically performs sentiment analysis to identify and categorize guest feedback as positive, negative, or neutral. Deployed the model and a lightweight Flask API on an <b>IBM Cloud Virtual Server instance</b>, providing hotel management with a comprehensive dashboard that transforms raw reviews into actionable insights, such as common complaints ("poor service," "loud AC") and positive trends. This reduced manual review analysis time for managers by over <b>90%</b>.</p>
+                    <div class="project-links">
+                        <a href="[Link to Project / GitHub Repo]" target="_blank"><i class="fab fa-github"></i> GitHub Repo</a>
+                    </div>
+                </div>
+<!--
+                <div class="project-card">
+                    <h3>Personal Finance Manager Mobile App</h3>
+                    <p><strong>Role/Contribution:</strong> Sole developer. Engineered a machine learning system to perform sentiment analysis on hotel reviews. The system analyzes large volumes of text data from sources like TripAdvisor and Booking.com to automatically categorize guest opinions and identify key topics and sentiments..</p>
+                    <p class="tech-list"><strong>Technologies:</strong> React Native, SQLite, Node.js, Express</p>
+                    <p><strong>Key Achievements:</strong> Implemented a robust data model and file-based persistence using **SQLite** to ensure data integrity and portability on mobile devices. Developed the cross-platform application using **React Native**, providing a consistent and responsive user experience on both iOS and Android. Successfully integrated a visualization library to provide users with a clear overview of their spending habits.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/MrBoredHuman/Hotel-Sentiment-Analysis" target="_blank"><i class="fab fa-github"></i> GitHub Repo</a>
+                    </div>
+                </div>
+               
+                <div class="project-card">
+                    <h3>Personal Finance Manager CLI Tool</h3>
+                    <p><strong>Role/Contribution:</strong> Sole developer. Designed and built a command-line interface tool to help users manage their personal finances through budget tracking, transaction logging, and basic data visualization.</p>
+                    <p class="tech-list"><strong>Technologies:</strong> Go, SQLite, Cobra CLI, Matplotlib</p>
+                    <p><strong>Key Achievements:</strong> Implemented a robust data model and file-based persistence using **SQLite** to ensure data integrity and portability. Developed the application using **Go** to ensure high performance and low resource consumption. Created custom commands to streamline common tasks, improving user efficiency. Successfully integrated a visualization library to provide users with a clear overview of their spending habits.</p>
+                    <div class="project-links">
+                        <a href="[Link to Project / GitHub Repo]" target="_blank"><i class="fab fa-github"></i> GitHub Repo</a>
+                    </div>
+                </div>
+            </div>
+        -->
+        </section>
+        <section id="education" class="section">
+            <h2>Education</h2>
+            <div class="edu-item">
+                <h3>B.Tech (Pursuing)</h3>
+                <p><strong>Computer Science</strong></p>
+                <p><strong>VIT Vellore</strong></p>
+                <p>Expected Graduation: 2027</p>
+                <p>Relevant Coursework: Data Structures & Algorithms, Operating Systems, Database Management Systems, Object-Oriented Programming, Human-Computer Interaction, Mobile Application Development, Artificial Intelligence</p>
+            </div>
+            <div class="edu-item">
+                <h3>High School</h3>
+                <p><strong>Delhi Public School</strong></p>
+                <p>Until 12th Standard</p>
+                <p>Relevant Coursework: Java, C, C++, HTML, CSS, Python, MySQL, Object-Oriented Programming</p>
+            </div>
+        </section>
+
+        <section id="connect" class="section">
+            <h2>Connect</h2>
+            <div class="social-links">
+                <a href="[Your LinkedIn Profile URL]" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/MrBoredHuman" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:dhruvkabra2004@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Dhruv Kabra. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll('.section');
+
+        const revealSection = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const sectionObserver = new IntersectionObserver(revealSection, {
+            root: null,
+            threshold: 0.15
+        });
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+    </script>
+</body>
+</html>
